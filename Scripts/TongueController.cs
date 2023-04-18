@@ -19,14 +19,17 @@ public class TongueController : MonoBehaviour
     [SerializeField] private GameObject line;
 
     Vector3 tongueScaleOld;
-
     private float extendTheTongueSpeed = 3.0f;
+
+    private Vector3 tongueRotationOld;
+    private Vector3 tongueRotationNew;
 
     private bool startCheckTongueState = false;
 
     void Start()
     {
         tongueScaleOld = gameObject.transform.localScale;
+        tongueRotationOld = gameObject.transform.localRotation.eulerAngles;
     }
 
     void Update()
@@ -51,9 +54,10 @@ public class TongueController : MonoBehaviour
     private void CheckTongueState() {
         if(transform.localScale.y < line.transform.localScale.y) {
             SetTongueState(ETongueState.Extend);
+            ChangeTongueRotation();
         } else if(transform.localScale.y > line.transform.localScale.y) {
-            line.GetComponent<Line>().ResetLineScale();
             SetTongueState(ETongueState.Return);
+            line.GetComponent<Line>().ResetLineScale();
         }
 
         // 舌头长度小于最小值时，恢复舌头长度，改成None，不再检查状态
@@ -62,7 +66,6 @@ public class TongueController : MonoBehaviour
             SetTongueState(ETongueState.None);
             IsCheckTongueState(false);
         }
-
     }
 
     public void IsCheckTongueState(bool yesOrNo) {
@@ -75,6 +78,14 @@ public class TongueController : MonoBehaviour
 
     public ETongueState GetTongueState() {
         return tongueState;
+    }
+
+    public void SetTongueRotation(float angle) {
+        tongueRotationNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+    }
+
+    private void ChangeTongueRotation() {
+        transform.localRotation = Quaternion.Euler(tongueRotationNew);
     }
 
     private void OnExtend() {
@@ -93,7 +104,7 @@ public class TongueController : MonoBehaviour
 
     private void OnNone() {
         transform.localScale = tongueScaleOld;
-        
+        Init();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -101,6 +112,10 @@ public class TongueController : MonoBehaviour
             Destroy(other.gameObject);
             line.GetComponent<Line>().ResetLineScale();
         }
+    }
+
+    private void Init() {
+        transform.localRotation = Quaternion.Euler(tongueRotationOld);
     }
 
 }

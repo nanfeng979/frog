@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
+    [SerializeField] private GameObject frog;
     [SerializeField] private GameObject tongue;
 
-    private float lineScale;
     Vector3 lineScaleOld;
     private float extendTheLineSpeed = 2.0f;
     private readonly float lineScaleMaxY = 3.0f;
 
+
+    Vector3 lineRotationOld;
+    Vector3 lineRotationNew;
+    private float lineRotationMaxRange = 30.0f;
+
     void Start()
     {
         lineScaleOld = gameObject.transform.localScale;
+        lineRotationOld = gameObject.transform.localRotation.eulerAngles;
     }
 
     void Update()
     {
         if(Input.GetMouseButton(0)) {
             ChangeLineScale();
+            ChangeLineRotation();
+            tongue.GetComponent<TongueController>().SetTongueRotation(lineRotationNew.z);
         }
 
         if(Input.GetMouseButtonUp(0)) {
@@ -28,7 +36,8 @@ public class Line : MonoBehaviour
     }
 
     public void Init() {
-        lineScale = lineScaleOld.y;
+        gameObject.transform.localScale = lineScaleOld;
+        gameObject.transform.localRotation = Quaternion.Euler(lineRotationOld);
     }
 
     private void ChangeLineScale() {
@@ -41,12 +50,22 @@ public class Line : MonoBehaviour
             transform.localScale.z);
     }
 
+    public void SetLineRotation(float angle) {
+        float tempLineRotationZ = angle;
+        tempLineRotationZ = Mathf.Clamp(tempLineRotationZ, -lineRotationMaxRange, lineRotationMaxRange);
+        lineRotationNew = new Vector3(lineRotationNew.x, lineRotationNew.y, tempLineRotationZ);
+    }
+
+    private void ChangeLineRotation() {
+        transform.localRotation = Quaternion.Euler(lineRotationNew);
+    }
+
     public void ResetLineScale() {
         transform.localScale = lineScaleOld;
     }
 
     public float GetLineScale() {
-        return lineScale;
+        return gameObject.transform.localScale.y;
     }
 
 }
