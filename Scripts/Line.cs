@@ -8,6 +8,7 @@ public class Line : MonoBehaviour
 
     private float lineScale;
     Vector3 lineScaleOld;
+    private float extendTheLineSpeed = 2.0f;
 
     void Start()
     {
@@ -17,7 +18,6 @@ public class Line : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButton(0)) {
-            lineScale += Time.deltaTime;
             ChangeLineScale();
         }
 
@@ -31,13 +31,14 @@ public class Line : MonoBehaviour
     }
 
     private void ChangeLineScale() {
-        Vector3 lineScaleNew = lineScaleOld;
-        lineScaleNew.y = lineScale;
-        gameObject.transform.localScale = lineScaleNew;
+        transform.localScale = new Vector3(
+            transform.localScale.x,
+            transform.localScale.y + (Time.deltaTime * extendTheLineSpeed),
+            transform.localScale.z);
     }
 
     public void ResetLineScale() {
-        gameObject.transform.localScale = lineScaleOld;
+        transform.localScale = lineScaleOld;
     }
 
     public float GetLineScale() {
