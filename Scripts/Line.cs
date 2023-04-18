@@ -9,6 +9,7 @@ public class Line : MonoBehaviour
     private float lineScale;
     Vector3 lineScaleOld;
     private float extendTheLineSpeed = 2.0f;
+    private readonly float lineScaleMaxY = 3.0f;
 
     void Start()
     {
@@ -31,9 +32,12 @@ public class Line : MonoBehaviour
     }
 
     private void ChangeLineScale() {
+        float tempLineScaleY = transform.localScale.y;
+        tempLineScaleY += Time.deltaTime * extendTheLineSpeed;
+        tempLineScaleY = tempLineScaleY > lineScaleMaxY ? lineScaleMaxY : tempLineScaleY;
         transform.localScale = new Vector3(
             transform.localScale.x,
-            transform.localScale.y + (Time.deltaTime * extendTheLineSpeed),
+            tempLineScaleY,
             transform.localScale.z);
     }
 
