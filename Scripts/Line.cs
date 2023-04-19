@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    [SerializeField] private GameObject frog; // 青蛙对象
-    [SerializeField] private GameObject tongue; // 舌头对象
+    [SerializeField] private GameObject frog; // 青蛙对象。
+    [SerializeField] private GameObject tongue; // 舌头对象。
 
-    Vector3 lineScaleOld; // 舌头当前的大小
-    private float extendTheLineSpeed = 2.0f; // 舌头伸出的速度
-    private readonly float lineScaleMaxY = 2.0f; // 舌头最大大小
+    Vector3 lineScaleOld; // 辅助线当前的大小。
+    private float extendTheLineSpeed = 2.0f; // 辅助线伸出的速度。
+    private readonly float lineScaleMaxY = 2.0f; // 辅助线Y轴最大长度。
 
-    Vector3 lineAngleOld; // 舌头当前的角度
-    Vector3 lineAngleNew; // 舌头新的角度
-    private float lineRotationMaxRange = 30.0f;
+    Vector3 lineAngleOld; // 辅助线当前的角度。
+    Vector3 lineAngleNew; // 辅助线新的角度。
+    private float lineRotationMaxRange = 30.0f; // 辅助线能够向左右每边旋转的最大角度。
 
     void Start()
     {
@@ -22,29 +22,36 @@ public class Line : MonoBehaviour
 
     void Update()
     {
+        // 鼠标按住时。
         if(Input.GetMouseButton(0)) {
+            // 改变辅助线的长度。
             ChangeLineScale();
+            // 改变辅助线的角度。
             ChangeLineAngle();
+            // 设置舌头新的角度。
             tongue.GetComponent<Tongue>().SetTongueNewAngle(lineAngleNew.z);
         }
 
+        // 鼠标抬起时。
         if(Input.GetMouseButtonUp(0)) {
+            // 开始检查舌头状态。
             tongue.GetComponent<Tongue>().IsCheckTongueState(true);
         }
     }
 
     private void Init() {
-        lineScaleOld = gameObject.transform.localScale;
-        lineAngleOld = gameObject.transform.localRotation.eulerAngles;
+        lineScaleOld = transform.localScale;
+        lineAngleOld = transform.localRotation.eulerAngles;
     }
 
+    // 重置辅助线的长度和角度为最初状态。
     public void Reset() {
-        gameObject.transform.localScale = lineScaleOld;
-        gameObject.transform.localRotation = Quaternion.Euler(lineAngleOld);
+        transform.localScale = lineScaleOld;
+        transform.localRotation = Quaternion.Euler(lineAngleOld);
     }
 
     public float GetLineScale() {
-        return gameObject.transform.localScale.y;
+        return transform.localScale.y;
     }
 
     public void ResetLineScale() {
@@ -52,18 +59,22 @@ public class Line : MonoBehaviour
     }
 
     private void ChangeLineScale() {
+        // 根据速度(extendTheLineSpeed)改变辅助线的长度。
         float tempLineScaleY = transform.localScale.y;
         tempLineScaleY += Time.deltaTime * extendTheLineSpeed;
+        // 限定辅助线的长度为lineScaleMaxY。
         tempLineScaleY = tempLineScaleY > lineScaleMaxY ? lineScaleMaxY : tempLineScaleY;
+        // 改变辅助线的大小，主要修改辅助线的Y轴。
         transform.localScale = new Vector3(
             transform.localScale.x,
             tempLineScaleY,
             transform.localScale.z);
     }
-
     public void SetLineNewAngle(float angle) {
         float tempLineRotationZ = angle;
+        // 限定辅助线的角度在-lineRotationMaxRange到lineRotationMaxRange之间。
         tempLineRotationZ = Mathf.Clamp(tempLineRotationZ, -lineRotationMaxRange, lineRotationMaxRange);
+        // 修改辅助线的角度，主要修改辅助线的Z轴。
         lineAngleNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, tempLineRotationZ);
     }
 
