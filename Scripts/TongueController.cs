@@ -62,8 +62,8 @@ public class TongueController : MonoBehaviour
 
         // 舌头长度小于最小值时，恢复舌头长度，改成None，不再检查状态
         if(transform.localScale.y < tongueScaleOld.y) {
-            line.GetComponent<Line>().Init();
             SetTongueState(ETongueState.None);
+            line.GetComponent<Line>().Init();
             IsCheckTongueState(false);
         }
     }
@@ -81,7 +81,9 @@ public class TongueController : MonoBehaviour
     }
 
     public void SetTongueRotation(float angle) {
-        tongueRotationNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+        if(tongueState == ETongueState.None) {
+            tongueRotationNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+        }
     }
 
     private void ChangeTongueRotation() {
