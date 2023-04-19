@@ -9,7 +9,7 @@ public class Line : MonoBehaviour
 
     Vector3 lineScaleOld;
     private float extendTheLineSpeed = 2.0f;
-    private readonly float lineScaleMaxY = 3.0f;
+    private readonly float lineScaleMaxY = 2.0f;
 
 
     Vector3 lineRotationOld;
