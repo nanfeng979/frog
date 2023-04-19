@@ -24,12 +24,14 @@ public class Line : MonoBehaviour
     {
         // 鼠标按住时。
         if(Input.GetMouseButton(0)) {
-            // 改变辅助线的长度。
-            ChangeLineScale();
-            // 改变辅助线的角度。
-            ChangeLineAngle();
-            // 设置舌头新的角度。
-            tongue.GetComponent<Tongue>().SetTongueNewAngle(lineAngleNew.z);
+            if(tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None) {
+                // 改变辅助线的长度。
+                ChangeLineScale();
+                // 改变辅助线的角度。
+                ChangeLineAngle();
+                // 设置舌头新的角度。
+                tongue.GetComponent<Tongue>().SetTongueNewAngle(lineAngleNew.z);
+            }
         }
 
         // 鼠标抬起时。

@@ -138,14 +138,11 @@ public class Tongue : MonoBehaviour
     }
 
     public void SetTongueNewAngle(float angle) {
-        // 当 只有舌头处于静止状态时，才修改舌头角度(此时舌头长度为初始状态)，主要修改舌头的Z轴。
-        // 在舌头处于非静止状态时，没办法修改舌头的角度。
-        if(tongueState == ETongueState.None) {
-            tongueAngleNew = new Vector3(
-                transform.localEulerAngles.x,
-                transform.localEulerAngles.y,
-                angle);
-        }
+        // 修改舌头角度，主要修改舌头的Z轴。
+        tongueAngleNew = new Vector3(
+            transform.localEulerAngles.x,
+            transform.localEulerAngles.y,
+            angle);
     }
 
     private void ChangeTongueAngle() {
