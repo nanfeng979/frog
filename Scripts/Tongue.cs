@@ -17,6 +17,7 @@ public class Tongue : MonoBehaviour
     private ETongueState tongueState; // 舌头状态变量。
 
     [SerializeField] private GameObject line; // 辅助线对象。
+    [SerializeField] private Transform tongueHead; // 舌头头部位置
 
     Vector3 tongueScaleOld; // 舌头当前的大小。
     private float extendTheTongueSpeed; // 舌头伸出的速度。
@@ -80,11 +81,11 @@ public class Tongue : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other) {
         // 当 触碰的对象是蚊子("Mos_"开头的对象)时。
         if(other.name.Substring(0, 4) == "Mos_") {
-            // 销毁蚊子。
-            Destroy(other.gameObject);
+            // 蚊子位置始终跟随舌头头部位置。
+            other.transform.position = tongueHead.position;
             // 重置辅助线的长度。
             line.GetComponent<Line>().ResetLineScale();
         }
