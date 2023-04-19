@@ -15,6 +15,6 @@ public class RotationOfLine : MonoBehaviour
         Vector2 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         float angle = Vector2.SignedAngle(transform.up, mousePosition - (Vector2)transform.position);
-        line.GetComponent<Line>().SetLineRotation(angle);
+        line.GetComponent<Line>().SetLineNewAngle(angle);
     }
 }

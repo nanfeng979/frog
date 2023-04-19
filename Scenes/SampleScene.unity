@@ -643,7 +643,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 395226767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43593284a8a700a4987be4c8dc3be4a0, type: 3}
+  m_Script: {fileID: 11500000, guid: b136dec1050572b4081563f3eda91513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 1235629336}
@@ -1085,7 +1085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665048537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.337, y: -4.511, z: -0.00004702159}
+  m_LocalPosition: {x: -0.337, y: -4.106, z: -0.00004702159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1107,7 +1107,6 @@ GameObject:
   - component: {fileID: 2028485715}
   - component: {fileID: 2028485714}
   - component: {fileID: 2028485716}
-  - component: {fileID: 2028485717}
   - component: {fileID: 2028485718}
   m_Layer: 0
   m_Name: Frog
@@ -1212,19 +1211,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8, y: 6.67}
   m_EdgeRadius: 0
---- !u!114 &2028485717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028485713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2d74123169acba4c9a719909ce771c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shetou: {fileID: 395226767}
 --- !u!50 &2028485718
 Rigidbody2D:
   serializedVersion: 4

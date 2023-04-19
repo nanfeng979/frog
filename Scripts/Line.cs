@@ -4,40 +4,51 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    [SerializeField] private GameObject frog;
-    [SerializeField] private GameObject tongue;
+    [SerializeField] private GameObject frog; // 青蛙对象
+    [SerializeField] private GameObject tongue; // 舌头对象
 
-    Vector3 lineScaleOld;
-    private float extendTheLineSpeed = 2.0f;
-    private readonly float lineScaleMaxY = 2.0f;
+    Vector3 lineScaleOld; // 舌头当前的大小
+    private float extendTheLineSpeed = 2.0f; // 舌头伸出的速度
+    private readonly float lineScaleMaxY = 2.0f; // 舌头最大大小
 
-
-    Vector3 lineRotationOld;
-    Vector3 lineRotationNew;
+    Vector3 lineAngleOld; // 舌头当前的角度
+    Vector3 lineAngleNew; // 舌头新的角度
     private float lineRotationMaxRange = 30.0f;
 
     void Start()
     {
-        lineScaleOld = gameObject.transform.localScale;
-        lineRotationOld = gameObject.transform.localRotation.eulerAngles;
+        Init();
     }
 
     void Update()
     {
         if(Input.GetMouseButton(0)) {
             ChangeLineScale();
-            ChangeLineRotation();
-            tongue.GetComponent<TongueController>().SetTongueRotation(lineRotationNew.z);
+            ChangeLineAngle();
+            tongue.GetComponent<Tongue>().SetTongueNewAngle(lineAngleNew.z);
         }
 
         if(Input.GetMouseButtonUp(0)) {
-            tongue.GetComponent<TongueController>().IsCheckTongueState(true);
+            tongue.GetComponent<Tongue>().IsCheckTongueState(true);
         }
     }
 
-    public void Init() {
+    private void Init() {
+        lineScaleOld = gameObject.transform.localScale;
+        lineAngleOld = gameObject.transform.localRotation.eulerAngles;
+    }
+
+    public void Reset() {
         gameObject.transform.localScale = lineScaleOld;
-        gameObject.transform.localRotation = Quaternion.Euler(lineRotationOld);
+        gameObject.transform.localRotation = Quaternion.Euler(lineAngleOld);
+    }
+
+    public float GetLineScale() {
+        return gameObject.transform.localScale.y;
+    }
+
+    public void ResetLineScale() {
+        transform.localScale = lineScaleOld;
     }
 
     private void ChangeLineScale() {
@@ -50,22 +61,14 @@ public class Line : MonoBehaviour
             transform.localScale.z);
     }
 
-    public void SetLineRotation(float angle) {
+    public void SetLineNewAngle(float angle) {
         float tempLineRotationZ = angle;
         tempLineRotationZ = Mathf.Clamp(tempLineRotationZ, -lineRotationMaxRange, lineRotationMaxRange);
-        lineRotationNew = new Vector3(lineRotationNew.x, lineRotationNew.y, tempLineRotationZ);
+        lineAngleNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, tempLineRotationZ);
     }
 
-    private void ChangeLineRotation() {
-        transform.localRotation = Quaternion.Euler(lineRotationNew);
-    }
-
-    public void ResetLineScale() {
-        transform.localScale = lineScaleOld;
-    }
-
-    public float GetLineScale() {
-        return gameObject.transform.localScale.y;
+    private void ChangeLineAngle() {
+        transform.localRotation = Quaternion.Euler(lineAngleNew);
     }
 
 }

@@ -12,7 +12,7 @@ public enum ETongueState {
     
 }
 
-public class TongueController : MonoBehaviour
+public class Tongue : MonoBehaviour
 {
     private ETongueState tongueState = ETongueState.None;
 
@@ -21,15 +21,14 @@ public class TongueController : MonoBehaviour
     Vector3 tongueScaleOld;
     private float extendTheTongueSpeed = 3.0f;
 
-    private Vector3 tongueRotationOld;
-    private Vector3 tongueRotationNew;
+    private Vector3 tongueAngleOld;
+    private Vector3 tongueAngleNew;
 
     private bool startCheckTongueState = false;
 
     void Start()
     {
-        tongueScaleOld = gameObject.transform.localScale;
-        tongueRotationOld = gameObject.transform.localRotation.eulerAngles;
+        Init();
     }
 
     void Update()
@@ -54,7 +53,7 @@ public class TongueController : MonoBehaviour
     private void CheckTongueState() {
         if(transform.localScale.y < line.transform.localScale.y) {
             SetTongueState(ETongueState.Extend);
-            ChangeTongueRotation();
+            ChangeTongueAngle();
         } else if(transform.localScale.y > line.transform.localScale.y) {
             SetTongueState(ETongueState.Return);
             line.GetComponent<Line>().ResetLineScale();
@@ -63,31 +62,16 @@ public class TongueController : MonoBehaviour
         // 舌头长度小于最小值时，恢复舌头长度，改成None，不再检查状态
         if(transform.localScale.y < tongueScaleOld.y) {
             SetTongueState(ETongueState.None);
-            line.GetComponent<Line>().Init();
+            line.GetComponent<Line>().Reset();
             IsCheckTongueState(false);
         }
     }
 
-    public void IsCheckTongueState(bool yesOrNo) {
-        startCheckTongueState = yesOrNo;
-    }
-
-    public void SetTongueState(ETongueState state) {
-        tongueState = state;
-    }
-
-    public ETongueState GetTongueState() {
-        return tongueState;
-    }
-
-    public void SetTongueRotation(float angle) {
-        if(tongueState == ETongueState.None) {
-            tongueRotationNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.name.Substring(0, 3) == "Mos") {
+            Destroy(other.gameObject);
+            line.GetComponent<Line>().ResetLineScale();
         }
-    }
-
-    private void ChangeTongueRotation() {
-        transform.localRotation = Quaternion.Euler(tongueRotationNew);
     }
 
     private void OnExtend() {
@@ -106,18 +90,38 @@ public class TongueController : MonoBehaviour
 
     private void OnNone() {
         transform.localScale = tongueScaleOld;
-        Init();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.name.Substring(0, 3) == "Mos") {
-            Destroy(other.gameObject);
-            line.GetComponent<Line>().ResetLineScale();
-        }
+        Reset();
     }
 
     private void Init() {
-        transform.localRotation = Quaternion.Euler(tongueRotationOld);
+        tongueScaleOld = gameObject.transform.localScale;
+        tongueAngleOld = gameObject.transform.localRotation.eulerAngles;
+    }
+
+    private void Reset() {
+        transform.localRotation = Quaternion.Euler(tongueAngleOld);
+    }
+
+    public void IsCheckTongueState(bool yesOrNo) {
+        startCheckTongueState = yesOrNo;
+    }
+
+    public ETongueState GetTongueState() {
+        return tongueState;
+    }
+
+    public void SetTongueState(ETongueState state) {
+        tongueState = state;
+    }
+
+    public void SetTongueNewAngle(float angle) {
+        if(tongueState == ETongueState.None) {
+            tongueAngleNew = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+        }
+    }
+
+    private void ChangeTongueAngle() {
+        transform.localRotation = Quaternion.Euler(tongueAngleNew);
     }
 
 }
