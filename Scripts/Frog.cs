@@ -15,12 +15,15 @@ public class Frog : MonoBehaviour
 
     [SerializeField] private GameObject line; // 辅助线对象
 
-    private Vector2 jumpDir; // 跳跃方向
+    private Vector2 jumpDiration; // 跳跃方向
+    private float jumpTime; // 跳跃完成所需要的时间
+    private float jumpDistance; // 跳跃完成所需要的距离
 
 
     void Start()
     {
-        
+        jumpTime = 1.0f;
+        jumpDistance = 1.0f;
     }
 
     void Update()
@@ -33,34 +36,36 @@ public class Frog : MonoBehaviour
                 break;
         }
 
-        if(frogState == EFrogState.None && tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None && !line.GetComponent<Line>().isMouseDown) {
+        if(frogState == EFrogState.None &&
+            tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None &&
+            !line.GetComponent<Line>().isMouseDown) {
             if(Input.GetKeyDown(KeyCode.UpArrow)) {
                 frogState = EFrogState.Jump;
-                jumpDir = Vector2.up;
+                jumpDiration = Vector2.up;
             } else if(Input.GetKeyDown(KeyCode.DownArrow)) {
                 frogState = EFrogState.Jump;
-                jumpDir = Vector2.down;
+                jumpDiration = Vector2.down;
             } else if(Input.GetKeyDown(KeyCode.LeftArrow)) {
                 frogState = EFrogState.Jump;
-                jumpDir = Vector2.left;
+                jumpDiration = Vector2.left;
             } else if(Input.GetKeyDown(KeyCode.RightArrow)) {
                 frogState = EFrogState.Jump;
-                jumpDir = Vector2.right;
+                jumpDiration = Vector2.right;
             }
         }
     }
 
     private void OnJump() {
-        if(jumpDir == Vector2.up) {
-            Debug.Log("向上跳");
-        } else if(jumpDir == Vector2.down) {
-            Debug.Log("向下跳");
-        } else if(jumpDir == Vector2.left) {
-            Debug.Log("向左跳");
-        } else if(jumpDir == Vector2.right) {
-            Debug.Log("向右跳");
-        }
-
+        StartCoroutine(Jump(jumpDiration));
         frogState = EFrogState.None;
+    }
+
+    IEnumerator Jump(Vector2 dir) {
+        float timer = 0.0f;
+        while(timer < jumpTime) {
+            timer += Time.deltaTime;
+            transform.Translate(dir * jumpDistance * Time.deltaTime);
+            yield return new WaitForFixedUpdate();
+        }
     }
 }
