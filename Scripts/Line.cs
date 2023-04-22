@@ -15,6 +15,8 @@ public class Line : MonoBehaviour
     Vector3 lineAngleNew; // 辅助线新的角度。
     private float lineRotationMaxRange = 30.0f; // 辅助线能够向左右每边旋转的最大角度。
 
+    public bool isMouseDown = false;
+
     void Start()
     {
         Init();
@@ -24,6 +26,8 @@ public class Line : MonoBehaviour
     {
         // 鼠标按住时。
         if(Input.GetMouseButton(0)) {
+            isMouseDown = true;
+
             if(tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None) {
                 // 改变辅助线的长度。
                 ChangeLineScale();
@@ -36,6 +40,8 @@ public class Line : MonoBehaviour
 
         // 鼠标抬起时。
         if(Input.GetMouseButtonUp(0)) {
+            isMouseDown = false;
+            
             // 开始检查舌头状态。
             tongue.GetComponent<Tongue>().IsCheckTongueState(true);
         }

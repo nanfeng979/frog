@@ -34,7 +34,7 @@ public class Tongue : MonoBehaviour
 
     void Update()
     {
-        switch(tongueState)  {
+        switch(tongueState) {
             case ETongueState.Extend: // 舌头伸出时。
                 OnExtend();
                 break;
