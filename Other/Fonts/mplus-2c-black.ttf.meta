@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 235b69e6ff10e2d4ab51873412b86931
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - BigruiqiaoGB1.0
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 92a8cb662520b944e9a80e9ba15ece71, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
