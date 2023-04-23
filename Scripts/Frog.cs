@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum EFrogState {
     None,
-    Jump
+    StartJump,
+    Jumping,
+    EndJump
 }
 
 public class Frog : MonoBehaviour
@@ -18,6 +20,7 @@ public class Frog : MonoBehaviour
     private Vector2 jumpDiration; // 跳跃方向
     private float jumpTime; // 跳跃完成所需要的时间
     private float jumpDistance; // 跳跃完成所需要的距离
+    private bool isJumping = false; // 判断青蛙是否在跳跃中
 
 
     void Start()
@@ -29,43 +32,66 @@ public class Frog : MonoBehaviour
     void Update()
     {
         switch(frogState) {
-            case EFrogState.None:
+            case EFrogState.None: //
                 break;
-            case EFrogState.Jump:
-                OnJump();
+            case EFrogState.StartJump:
+                OnStartJump();
+                break;
+            case EFrogState.Jumping:
+                OnJumping();
+                break;
+            case EFrogState.EndJump:
+                OnEndJump();
                 break;
         }
 
-        if(frogState == EFrogState.None &&
-            tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None &&
-            !line.GetComponent<Line>().isMouseDown) {
-            if(Input.GetKeyDown(KeyCode.UpArrow)) {
-                frogState = EFrogState.Jump;
-                jumpDiration = Vector2.up;
-            } else if(Input.GetKeyDown(KeyCode.DownArrow)) {
-                frogState = EFrogState.Jump;
-                jumpDiration = Vector2.down;
-            } else if(Input.GetKeyDown(KeyCode.LeftArrow)) {
-                frogState = EFrogState.Jump;
-                jumpDiration = Vector2.left;
-            } else if(Input.GetKeyDown(KeyCode.RightArrow)) {
-                frogState = EFrogState.Jump;
-                jumpDiration = Vector2.right;
-            }
-        }
+        CheckFrogStateToJump();
+        
     }
 
-    private void OnJump() {
+    private void OnStartJump() {
+        frogState = EFrogState.Jumping;
+    }
+
+    private void OnJumping() {
         StartCoroutine(Jump(jumpDiration));
-        frogState = EFrogState.None;
+        frogState = EFrogState.EndJump;
+    }
+
+    private void OnEndJump() {
+        if(!isJumping) {
+            frogState = EFrogState.None;
+        }
     }
 
     IEnumerator Jump(Vector2 dir) {
+        isJumping = true;
         float timer = 0.0f;
         while(timer < jumpTime) {
             timer += Time.deltaTime;
             transform.Translate(dir * jumpDistance * Time.deltaTime);
             yield return new WaitForFixedUpdate();
+        }
+        isJumping = false;
+    }
+
+    private void CheckFrogStateToJump() {
+        if(frogState == EFrogState.None &&
+            tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None &&
+            !line.GetComponent<Line>().isMouseDown) {
+            if(Input.GetKeyDown(KeyCode.UpArrow)) {
+                frogState = EFrogState.StartJump;
+                jumpDiration = Vector2.up;
+            } else if(Input.GetKeyDown(KeyCode.DownArrow)) {
+                frogState = EFrogState.StartJump;
+                jumpDiration = Vector2.down;
+            } else if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+                frogState = EFrogState.StartJump;
+                jumpDiration = Vector2.left;
+            } else if(Input.GetKeyDown(KeyCode.RightArrow)) {
+                frogState = EFrogState.StartJump;
+                jumpDiration = Vector2.right;
+            }
         }
     }
 }
