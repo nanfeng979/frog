@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Line : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class Line : MonoBehaviour
 
     void Update()
     {
+        // 当鼠标按到UI时，不做反应
+        if(EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
+
         // 鼠标按住时。
         if(Input.GetMouseButton(0)) {
             isMouseDown = true;

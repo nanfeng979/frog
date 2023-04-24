@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
             case EGameState.GameOver:
                 break;
             case EGameState.Stop:
+                OnStop();
                 break;
             case EGameState.UI:
                 OnUI();
@@ -47,8 +48,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnPlaying() {
+    private void OnPlaying() {
         Time.timeScale = 1;
+    }
+
+    private void OnStop() {
+        Time.timeScale = 0;
     }
 
     private void OnUI() {
