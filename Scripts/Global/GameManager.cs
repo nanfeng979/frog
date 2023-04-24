@@ -28,6 +28,33 @@ public class GameManager : MonoBehaviour
         GameState = EGameState.None;
     }
 
+    void Update() {
+        switch(GameState) {
+            case EGameState.Playing:
+                OnPlaying();
+                break;
+            case EGameState.LevelSelect:
+                break;
+            case EGameState.Loading:
+                break;
+            case EGameState.GameOver:
+                break;
+            case EGameState.Stop:
+                break;
+            case EGameState.UI:
+                OnUI();
+                break;
+        }
+    }
+
+    public void OnPlaying() {
+        Time.timeScale = 1;
+    }
+
+    private void OnUI() {
+        Time.timeScale = 0;
+    }
+
     public void SetGameState(EGameState state) {
         GameState = state;
         Debug.Log("Current GameState: " + state);
