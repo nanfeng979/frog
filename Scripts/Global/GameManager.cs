@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public EGameState GameState { get; private set; }
 
     void Awake() {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start() {
@@ -30,6 +30,6 @@ public class GameManager : MonoBehaviour
 
     public void SetGameState(EGameState state) {
         GameState = state;
-        Debug.Log(state);
+        Debug.Log("Current GameState: " + state);
     }
 }

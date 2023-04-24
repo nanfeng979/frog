@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelSelectManager : MonoBehaviour
 {
-    void Awake() {
+    void Start() {
         GameManager.Instance.SetGameState(EGameState.LevelSelect);
     }
 }
