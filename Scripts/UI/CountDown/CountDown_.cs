@@ -14,13 +14,13 @@ public class CountDown_ : MonoBehaviour
     {
         image = GetComponent<Image>();
         
-        PercentagePerSecond = 10;
+        PercentagePerSecond = 2;
     }
 
     void Update()
     {
         // 修改Image的FillAmout，用于倒计时的时间流逝，每秒流逝百分之X。
-        image.fillAmount -= (1 / PercentagePerSecond) * Time.deltaTime;
+        image.fillAmount -= (PercentagePerSecond / 100) * Time.deltaTime;
 
         // 当倒计时结束时，显示TipsGameOver界面。
         if(image.fillAmount == 0) {
