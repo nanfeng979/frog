@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ReturnConfirm : MonoBehaviour
 {
-    public void YesReturn() {
+    public void YesReturnToLevelSelect() {
         SceneManager.LoadScene("LevelSelect");
     }
 
