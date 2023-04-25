@@ -9,4 +9,8 @@ public class IlluController : MonoBehaviour
     public void OnClick() {
         IlluFrame.SetActive(true);
     }
+
+    public void OnClickClose() {
+        IlluFrame.SetActive(false);
+    }
 }
