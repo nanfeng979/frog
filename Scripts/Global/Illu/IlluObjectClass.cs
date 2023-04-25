@@ -20,4 +20,8 @@ public class IlluObjectClass : ScriptableObject
     public bool GetIsActivation() {
         return isActivation;
     }
+
+    public void SetIsActivation(bool _isActivation) {
+        isActivation = _isActivation;
+    }
 }
