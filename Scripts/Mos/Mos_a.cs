@@ -11,9 +11,7 @@ public class Mos_a : MosBasicClass, IMosBasicClass
 
     void Start()
     {
-        transform.position = InitPosition(); // 重定义新的位置。
-
-        anglePerSecond = 90.0f; // 设置每秒转动的角度。
+        Init();
     }
 
     void Update()
@@ -23,7 +21,9 @@ public class Mos_a : MosBasicClass, IMosBasicClass
 
     private void Init() {
         // 初始化位置。
-        InitPosition();
+        SetName("Mos");
+        transform.position = InitPosition(); // 重定义新的位置。
+        anglePerSecond = 90.0f; // 设置每秒转动的角度。
     }
 
     private Vector2 InitPosition() {

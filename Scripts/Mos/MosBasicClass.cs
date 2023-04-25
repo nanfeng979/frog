@@ -16,6 +16,10 @@ public class MosBasicClass : MonoBehaviour
         return objectName;
     }
 
+    public void SetName(string _name) {
+        objectName = _name;
+    }
+
 }
 
 public interface IMosBasicClass {
