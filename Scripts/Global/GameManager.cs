@@ -10,7 +10,8 @@ public enum EGameState
     Playing,
     GameOver,
     Stop,
-    UI
+    UI,
+    PopUp
 }
 
 public class GameManager : MonoBehaviour
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour
             case EGameState.UI:
                 OnUI();
                 break;
+            case EGameState.PopUp:
+                OnPopUp();
+                break;
         }
     }
 
@@ -58,6 +62,10 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnUI() {
+        Time.timeScale = 0;
+    }
+
+    private void OnPopUp() {
         Time.timeScale = 0;
     }
 

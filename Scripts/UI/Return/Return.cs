@@ -10,7 +10,7 @@ public class Return : MonoBehaviour
         if(returnConfirm.gameObject.activeSelf == false) {
             returnConfirm.gameObject.SetActive(true);
             GameManager.Instance.SetGameStatePrev(GameManager.Instance.GameState);
-            GameManager.Instance.SetGameState(EGameState.UI);
+            GameManager.Instance.SetGameState(EGameState.PopUp);
         }
     }
 
