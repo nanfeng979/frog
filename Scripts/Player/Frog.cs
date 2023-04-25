@@ -11,16 +11,16 @@ public enum EFrogState {
 
 public class Frog : MonoBehaviour
 {
-    private EFrogState frogState; // 青蛙状态量
+    private EFrogState frogState; // 青蛙状态量。
 
-    [SerializeField] private GameObject tongue; // 舌头对象
+    [SerializeField] private GameObject tongue; // 舌头对象。
 
-    [SerializeField] private GameObject line; // 辅助线对象
+    [SerializeField] private GameObject line; // 辅助线对象。
 
-    private Vector2 jumpDiration; // 跳跃方向
-    private float jumpTime; // 跳跃完成所需要的时间
-    private float jumpDistance; // 跳跃完成所需要的距离
-    private bool isJumping = false; // 判断青蛙是否在跳跃中
+    private Vector2 jumpDiration; // 跳跃方向。
+    private float jumpTime; // 跳跃完成所需要的时间。
+    private float jumpDistance; // 跳跃完成所需要的距离。
+    private bool isJumping = false; // 判断青蛙是否在跳跃中。
 
 
     void Start()
@@ -32,7 +32,7 @@ public class Frog : MonoBehaviour
     void Update()
     {
         switch(frogState) {
-            case EFrogState.None: //
+            case EFrogState.None:
                 break;
             case EFrogState.StartJump:
                 OnStartJump();
