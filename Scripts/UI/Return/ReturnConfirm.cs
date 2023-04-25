@@ -11,7 +11,7 @@ public class ReturnConfirm : MonoBehaviour
     }
 
     public void NoReturn() {
-        GameManager.Instance.SetGameState(EGameState.Playing);
+        GameManager.Instance.SetGameState(GameManager.Instance.GameStatePrev);
         gameObject.SetActive(false);
     }
 }

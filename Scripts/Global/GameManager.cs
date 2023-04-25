@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public EGameState GameState { get; private set; }
+    public EGameState GameStatePrev { get; private set; }
 
     void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -63,5 +64,9 @@ public class GameManager : MonoBehaviour
     public void SetGameState(EGameState state) {
         GameState = state;
         Debug.Log("Current GameState: " + state);
+    }
+
+    public void SetGameStatePrev(EGameState state) {
+        GameStatePrev = state;
     }
 }
