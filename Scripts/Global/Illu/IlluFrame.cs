@@ -8,11 +8,11 @@ public class IlluFrame : MonoBehaviour
     [SerializeField] private GameObject Illu_smallFrame_Pre; // 图鉴中每个对象的预设体。
 
     void OnEnable() {
+        // TODO: 将图鉴个数确定好，只遍历是否激活，不增加图鉴对象。
         // 每次启用时移除上一次加载的图鉴，即当前对象的所有的子对象。
         foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }
-
 
         // 拿到图鉴列表。
         List<IlluObjectClass> IlluList = Illu.Instance.GetIlluObjects();

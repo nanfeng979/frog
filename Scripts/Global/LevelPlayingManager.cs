@@ -7,5 +7,6 @@ public class LevelPlayingManager : MonoBehaviour
     void Start()
     {
         GameManager.Instance.SetGameState(EGameState.Playing);
+        GamePageManager.Instance.SetCurrentPage(EGamePage.Gameing);
     }
 }

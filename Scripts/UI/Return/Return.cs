@@ -9,7 +9,6 @@ public class Return : MonoBehaviour
     public void EnableReturnConfirm() {
         if(returnConfirm.gameObject.activeSelf == false) {
             returnConfirm.gameObject.SetActive(true);
-            GameManager.Instance.SetGameStatePrev(GameManager.Instance.GameState);
             GameManager.Instance.SetGameState(EGameState.PopUp);
         }
     }

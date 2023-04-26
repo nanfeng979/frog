@@ -70,11 +70,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetGameState(EGameState state) {
+        GameStatePrev = state;
         GameState = state;
         Debug.Log("Current GameState: " + state);
     }
 
-    public void SetGameStatePrev(EGameState state) {
-        GameStatePrev = state;
-    }
 }

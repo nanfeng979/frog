@@ -6,5 +6,6 @@ public class LevelSelectManager : MonoBehaviour
 {
     void Start() {
         GameManager.Instance.SetGameState(EGameState.LevelSelect);
+        GamePageManager.Instance.SetCurrentPage(EGamePage.LevelSelect);
     }
 }

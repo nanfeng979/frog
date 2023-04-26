@@ -7,11 +7,27 @@ using UnityEngine.SceneManagement;
 public class ReturnConfirm : MonoBehaviour
 {
     public void YesReturnToLevelSelect() {
-        SceneManager.LoadScene("LevelSelect");
+        switch(GamePageManager.Instance.CurrentPage) {
+            case EGamePage.LevelSelect:
+                ReturnToGameStart();
+                break;
+            case EGamePage.Gameing:
+                ReturnToLevelSelect();
+                break;
+        }
+        
     }
 
     public void NoReturn() {
         GameManager.Instance.SetGameState(GameManager.Instance.GameStatePrev);
         gameObject.SetActive(false);
+    }
+
+    private void ReturnToLevelSelect() {
+        SceneManager.LoadScene("LevelSelect");
+    }
+
+    private void ReturnToGameStart() {
+        SceneManager.LoadScene("GameStart");
     }
 }
