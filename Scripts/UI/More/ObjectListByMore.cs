@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectListByMore : MonoBehaviour
 {
     private List<GameObject> childs = new List<GameObject>();
-    private List<Vector3> childsOldPosition = new List<Vector3>();
+    private List<Vector2> childsOldPosition = new List<Vector2>();
 
     private float openMoveDistance = 0.0f;
     private float objectsWillMoveDistance = 300.0f;
@@ -14,6 +15,9 @@ public class ObjectListByMore : MonoBehaviour
 
     void Awake() {
         GetChildsObjectAndOldPosition();
+        Mask mask = GetComponent<Mask>();
+        // 禁用mask
+        // mask.enabled = false;
     }
 
     void OnEnable() {
@@ -31,7 +35,7 @@ public class ObjectListByMore : MonoBehaviour
         if(showListTimer < showListTime && openMoveDistance < objectsWillMoveDistance) {
             openMoveDistance += step;
             for(int i = 0; i < transform.childCount; i++) {
-                childs[i].transform.position -= new Vector3(0.0f, step * objectsWillMoveDistance / showListTime, 0.0f);
+                childs[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(0.0f, step * objectsWillMoveDistance / showListTime);
             }
         }
     }
@@ -39,7 +43,7 @@ public class ObjectListByMore : MonoBehaviour
     private void GetChildsObjectAndOldPosition() {
         for(int i = 0; i < transform.childCount; i++) {
             childs.Add(transform.GetChild(i).gameObject);
-            childsOldPosition.Add(transform.GetChild(i).position);
+            childsOldPosition.Add(transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition);
         }
     }
 
@@ -50,7 +54,7 @@ public class ObjectListByMore : MonoBehaviour
 
     private void childsResetPosition() {
         for(int i = 0; i < transform.childCount; i++) {
-            childs[i].transform.position = childsOldPosition[i];
+            childs[i].transform.GetComponent<RectTransform>().anchoredPosition = childsOldPosition[i];
         }
     }
 

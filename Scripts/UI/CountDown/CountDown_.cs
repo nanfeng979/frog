@@ -14,7 +14,7 @@ public class CountDown_ : MonoBehaviour
     {
         image = GetComponent<Image>();
         
-        PercentagePerSecond = 2;
+        PercentagePerSecond = 0.2f;
     }
 
     void Update()
