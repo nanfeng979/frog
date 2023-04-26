@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035199713460284875, guid: ba9fd52f84cb736449d626461121336c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 404
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 7035199714572279046, guid: ba9fd52f84cb736449d626461121336c, type: 3}
       propertyPath: m_Pivot.x
@@ -538,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &355000880
 RectTransform:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

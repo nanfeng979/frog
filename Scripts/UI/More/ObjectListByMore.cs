@@ -13,11 +13,13 @@ public class ObjectListByMore : MonoBehaviour
     private float showListTime = 0.6f;
     private float showListTimer = 0.0f;
 
+    private Color oldColor;
+
     void Awake() {
         GetChildsObjectAndOldPosition();
-        Mask mask = GetComponent<Mask>();
-        // 禁用mask
-        // mask.enabled = false;
+        GetComponent<Mask>().enabled = false;
+        oldColor = GetComponent<Image>().color;
+        GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
 
     void OnEnable() {
@@ -50,6 +52,9 @@ public class ObjectListByMore : MonoBehaviour
     private void ResetData() {
         openMoveDistance = 0.0f;
         showListTimer = 0.0f;
+
+        GetComponent<Mask>().enabled = true;
+        GetComponent<Image>().color = oldColor;
     }
 
     private void childsResetPosition() {
