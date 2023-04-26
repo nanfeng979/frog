@@ -13,13 +13,13 @@ public class ObjectListByMore : MonoBehaviour
     private float showListTime = 0.6f;
     private float showListTimer = 0.0f;
 
-    private Color oldColor;
+    private Mask mask;
+    private Image image;
 
-    void Awake() {
+    void Start() {
         GetChildsObjectAndOldPosition();
-        GetComponent<Mask>().enabled = false;
-        oldColor = GetComponent<Image>().color;
-        GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        image = GetComponent<Image>();
+        mask = GetComponent<Mask>();
     }
 
     void OnEnable() {
@@ -28,17 +28,20 @@ public class ObjectListByMore : MonoBehaviour
 
     void OnDisable() {
         childsResetPosition();
+        EnabledMaskAttr();
     }
     
     void Update()
     {
-        float step = Time.deltaTime;
-        showListTimer += step;
+        float dt = Time.deltaTime;
+        showListTimer += dt;
         if(showListTimer < showListTime && openMoveDistance < objectsWillMoveDistance) {
-            openMoveDistance += step;
+            openMoveDistance += dt;
             for(int i = 0; i < transform.childCount; i++) {
-                childs[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(0.0f, step * objectsWillMoveDistance / showListTime);
+                childs[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(0.0f, dt * objectsWillMoveDistance / showListTime);
             }
+        } else {
+            DisableMaskAttr();
         }
     }
 
@@ -52,15 +55,22 @@ public class ObjectListByMore : MonoBehaviour
     private void ResetData() {
         openMoveDistance = 0.0f;
         showListTimer = 0.0f;
-
-        GetComponent<Mask>().enabled = true;
-        GetComponent<Image>().color = oldColor;
     }
 
     private void childsResetPosition() {
         for(int i = 0; i < transform.childCount; i++) {
             childs[i].transform.GetComponent<RectTransform>().anchoredPosition = childsOldPosition[i];
         }
+    }
+
+    private void EnabledMaskAttr() {
+        mask.enabled = true;
+        image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    private void DisableMaskAttr() {
+        mask.enabled = false;
+        image.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
 
     
