@@ -23,12 +23,10 @@ public class GameManager : MonoBehaviour
     public EGameState GameStatePrev { get; private set; }
 
     void Awake() {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start() {
-        Instance = this;
-        GameState = EGameState.None;
+        if(Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Update() {
