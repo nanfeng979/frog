@@ -11,7 +11,7 @@ public class ReturnConfirm : MonoBehaviour
             case EGamePage.LevelSelect:
                 ReturnToGameStart();
                 break;
-            case EGamePage.Gameing:
+            case EGamePage.Gaming:
                 ReturnToLevelSelect();
                 break;
         }

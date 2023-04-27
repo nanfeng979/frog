@@ -5,7 +5,7 @@ using UnityEngine;
 public enum EGamePage {
     GameStart,
     LevelSelect,
-    Gameing
+    Gaming
 
 }
 
