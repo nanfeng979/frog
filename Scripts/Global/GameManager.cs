@@ -5,6 +5,7 @@ using UnityEngine;
 public enum EGameState
 {
     None,
+    GameStart,
     LevelSelect,
     Loading,
     Playing,
@@ -70,9 +71,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetGameState(EGameState state) {
-        GameStatePrev = state;
+        GameStatePrev = GameState;
         GameState = state;
         Debug.Log("Current GameState: " + state);
+    }
+
+    public void SetGameStateUsePrev() {
+        SetGameState(GameStatePrev);
     }
 
 }

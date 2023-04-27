@@ -8,9 +8,11 @@ public class IlluController : MonoBehaviour
 
     public void OnClick() {
         IlluFrame.SetActive(true);
+        GameManager.Instance.SetGameState(EGameState.PopUp);
     }
 
     public void OnClickClose() {
         IlluFrame.SetActive(false);
+        GameManager.Instance.SetGameStateUsePrev();
     }
 }
