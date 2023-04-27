@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
             case EGameState.Loading:
                 break;
             case EGameState.GameOver:
+                OnGameOver();
                 break;
             case EGameState.Stop:
                 OnStop();
@@ -54,6 +55,11 @@ public class GameManager : MonoBehaviour
 
     private void OnPlaying() {
         Time.timeScale = 1;
+    }
+
+    private void OnGameOver() {
+        Time.timeScale = 0;
+        Debug.Log("GameOver");
     }
 
     private void OnStop() {

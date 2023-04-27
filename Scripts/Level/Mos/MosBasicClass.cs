@@ -26,6 +26,8 @@ public class MosBasicClass : MonoBehaviour
             AddIllu();
             // 蚊子碰到青蛙本体时，摧毁自己。
             Destroy(gameObject);
+            // 减少当前关卡的敌人数。
+            LevelManager.Instance.KillEnemy();
         }
     }
 
