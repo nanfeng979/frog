@@ -20,6 +20,20 @@ public class MosBasicClass : MonoBehaviour
         objectName = _name;
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.name == "Frog") {
+            // 被捕食时，增加图鉴。
+            AddIllu();
+            // 蚊子碰到青蛙本体时，摧毁自己。
+            Destroy(gameObject);
+        }
+    }
+
+    private void AddIllu() {
+        // 激活图鉴。
+        Illu.Instance.AddIlluObject(objectName);
+    }
+
 }
 
 public interface IMosBasicClass {
