@@ -76,9 +76,7 @@ public class Frog : MonoBehaviour
     }
 
     private void CheckFrogStateToJump() {
-        if(frogState == EFrogState.None &&
-            tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None &&
-            !line.GetComponent<Line>().isMouseDown) {
+        if(!CantJump()) {
             if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
                 frogState = EFrogState.StartJump;
                 jumpDiration = Vector2.up;
@@ -93,5 +91,19 @@ public class Frog : MonoBehaviour
                 jumpDiration = Vector2.right;
             }
         }
+    }
+
+    public EFrogState GetFrogState() {
+        return frogState;
+    }
+
+    private bool CantJump() {
+        if(frogState != EFrogState.None ||
+            tongue.GetComponent<Tongue>().GetTongueState() != ETongueState.None ||
+            line.GetComponent<Line>().isMouseDown) {
+                return true;
+            }
+
+        return false;
     }
 }

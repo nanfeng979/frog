@@ -32,6 +32,10 @@ public class Line : MonoBehaviour
 
         // 鼠标按住时。
         if(Input.GetMouseButton(0)) {
+            if(CantMouseDown()) {
+                return;
+            }
+            
             isMouseDown = true;
 
             if(tongue.GetComponent<Tongue>().GetTongueState() == ETongueState.None) {
@@ -94,6 +98,14 @@ public class Line : MonoBehaviour
 
     private void ChangeLineAngle() {
         transform.localRotation = Quaternion.Euler(lineAngleNew);
+    }
+
+    private bool CantMouseDown() {
+        if(frog.GetComponent<Frog>().GetFrogState() == EFrogState.Jumping) {
+            return true;
+        }
+
+        return false;
     }
 
 }
