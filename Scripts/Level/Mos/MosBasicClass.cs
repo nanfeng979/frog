@@ -24,6 +24,9 @@ public class MosBasicClass : MonoBehaviour
         if(other.name == "Frog") {
             // 被捕食时，增加图鉴。
             AddIllu();
+            // 增加背包此对象的数量。
+            BagData bagData = new BagData(objectName, 1, GetComponent<SpriteRenderer>().sprite);
+            BagDataManager.Instance.AddBagData(bagData);
             // 蚊子碰到青蛙本体时，摧毁自己。
             Destroy(gameObject);
             // 减少当前关卡的敌人数。

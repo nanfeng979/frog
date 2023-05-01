@@ -27,6 +27,9 @@ public class Line : MonoBehaviour
     {
         // 当鼠标按到UI时，不做反应
         if(EventSystem.current.IsPointerOverGameObject()) {
+            isMouseDown = false;
+            // 开始检查舌头状态。
+            tongue.GetComponent<Tongue>().IsCheckTongueState(true);
             return;
         }
 
